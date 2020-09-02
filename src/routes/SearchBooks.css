@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
+
+body {
+    background-color: white;
+}
+
+.container{
+  margin-top:10px;
+}
+
+.topocket{
+  font-family: 'Nanum Myeongjo', serif;
+}
+
+.input_search {
+    width: 600px;
+    margin: 0;
+    height: 51px;
+    background: none;
+    border-bottom: 1px solid #754C00;
+    border-radius: 0;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    padding: 0 5px;
+    position: relative;
+}
+
+.input_div {
+  text-align: center;
+  width: 100%;
+}
+
+.input_div h1{
+    font-family: 'Shadows Into Light', cursive;
+   font-size:50px;
+   font-style: initial;
+}
+
+.books{
+  font-family: 'Nanum Myeongjo', serif;
+  position: relative;
+  display: grid;
+  left:25%;
+  width:75%; 
+}

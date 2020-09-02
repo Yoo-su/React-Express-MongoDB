@@ -20,10 +20,10 @@ const Login=()=>{
     }
 
     function PostData(){
-        axios.post("/api/login",{
+        axios.post("http://localhost:3002/api/login",{
             email:inputEmail,
             password:inputPW
-        }).then(res=>{
+        },{withCredentials:true}).then(res=>{  //withCredentila:true 이거 해줘야 서버에서 쿠키 제대로 가져옴
             if(res.data.loginSuccess===true){
                 alert("로그인 성공");
                 window.location.href="#/";
@@ -31,7 +31,7 @@ const Login=()=>{
                 alert(res.data.message);
             }
         })
-        .then(err=>{if(err)console.log(err);});
+        .catch(err=>{console.log(err);});
     }
 
     return (

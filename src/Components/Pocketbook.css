@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Cute+Font&display=swap');
+
+.pocketbook{
+  font-family: 'Cute Font', cursive;
+  font-size: 15px;
+  border-bottom: 1px dashed #000000;
+}
+
+.pimage{
+    float:left;
+    margin:10px;
+}

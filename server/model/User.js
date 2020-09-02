@@ -20,6 +20,19 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true,
         minLength:5
+    },
+    role:{
+      type:Number,
+      default:0
+    },
+    token:{
+      type:String,
+    },
+    tokenExp:{
+      type:Number
+    },
+    pocket:{
+      type:[Object]
     }
 });
 

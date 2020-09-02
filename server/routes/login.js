@@ -26,9 +26,7 @@ router.post("/", (req, res) => {
           user
             .generateToken()
             .then((user) => {
-              res
-                .cookie("x_auth", user.token)
-                .status(200)
+              res.cookie("x_auth", user.token).status(200)
                 .json({ loginSuccess: true, userId: user._id });
             })
             .catch((err) => {

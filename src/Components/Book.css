@@ -1,0 +1,13 @@
+.book{
+    border-bottom: 2px solid #000000;
+    width:65%;
+}
+
+.cover{
+    float: left;
+    margin-right: 10px;
+}
+
+.contents{
+    font-size: 14px;
+}

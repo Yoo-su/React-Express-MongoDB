@@ -1,7 +1,7 @@
 const {User}=require("../server/model/User");
 
 let auth=(req,res,next)=>{
-    let token=req.cookies.x_auth;
+    let token=req.query.cookies;
 
     User.findByToken(token)
     .then((user)=>{

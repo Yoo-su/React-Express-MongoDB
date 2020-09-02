@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Stylish&display=swap');
+
+.ptitle{
+    font-family: 'Stylish', sans-serif;
+    text-align: center;
+    font-size: 30px;
+}
+
+.pbooks{
+    position: relative;
+    display:grid;
+    left:25%;
+    width:50%;
+    border:2px solid #000000;
+}

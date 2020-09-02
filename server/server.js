@@ -4,7 +4,10 @@ const app=express();
 const api=require('./routes/index');
 const cors = require('cors');
 
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 app.use('/api',api);
 
-app.listen(3001,()=>console.log('Server is running!'));
+app.listen(3002,()=>console.log('Server is running!'));

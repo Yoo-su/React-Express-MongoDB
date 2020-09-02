@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers';
 import {Button} from "react-bootstrap";
@@ -20,7 +19,7 @@ export default function Signup() {
   });
   const onSubmit = data => {
       console.log(data);
-      axios.post("/api/register",data)
+      axios.post("http://localhost:3002/api/register",data)
       .then(res=>{
           if(res.data.success===true){
               alert("회원가입 성공!");
