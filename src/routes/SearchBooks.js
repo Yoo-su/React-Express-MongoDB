@@ -4,36 +4,12 @@ import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import Book from '../Components/Book';
 import './SearchBooks.css';
-
-function PocketBtn(props){
-    const isLogin=props.isLogin;
-    if(isLogin===true){
-       return (
-        <Link to={{
-            pathname:'/Mybooks'
-        }}><Button variant="primary" className="topocket">나의 장바구니</Button></Link>
-       );
-    }else return(
-        <></>
-    );
-}
-
-function LoginBtn(props){
-    const isLogin=props.isLogin;
-    if(isLogin===false){
-        return(
-            <Link to={{
-                pathname:'/Login'
-            }}><Button variant="success" className="LoginBtn">로그인</Button></Link>
-        );
-    }else return(<></>);
-}
+import { connect } from 'react-redux';
+import {LogIn,LogOut} from "../store";
 
 class SearchBooks extends Component{
     state={
         isLoading:true,
-        isLogin:false,
-        curUser:{},
         value:"",
         books:[]
     };
@@ -67,13 +43,7 @@ class SearchBooks extends Component{
     //컴포넌트가 렌더링되면서 getBook함수 호출
     componentDidMount(){
      if(document.cookie){
-         this.state.isLogin=true;
-         const token=document.cookie.split("=")[1];
-         axios.get("http://localhost:3002/api/auth",{
-             params:{cookies:token}
-         })
-        .then(res=>{this.setState({curUser:res}); console.log(this.state.curUser);});
-        
+         this.props.LoginTrue();
      }
      this.getBooks();
     };
@@ -89,26 +59,48 @@ class SearchBooks extends Component{
        this.getBooks();
    };
 
+    PocketBtn=()=>{
+    if(this.props.isLogin===true){
+       return (
+        <Link to={{
+            pathname:'/Mybooks'
+        }}><Button variant="primary" className="topocket">나의 장바구니</Button></Link>
+       );
+    }else return(
+        <></>
+     );
+    };
+    LoginBtn=()=>{
+    if(this.props.isLogin===false){
+        return(
+            <Link to={{
+                pathname:'/Login'
+            }}><Button variant="success" className="LoginBtn">로그인</Button></Link>
+        );
+    }else return(<></>);
+    };
+
+    LogoutBtn=()=>{
+    if(this.props.isLogin===true){
+        return(
+            <Button variant="danger" className="LogoutBtn" onClick={this.props.LoginFalse,()=>{
+                document.cookie="x_auth=; expires=Thu, 01 Jan 1999 00:00:10 GMT;"; //쿠키제거
+                document.location.reload(true);
+            }}>로그아웃</Button>
+        )
+    }
+    };
+
     render(){
-        const {isLoading,isLogin,books}=this.state;
+        const {isLoading,books}=this.state;
         const{
             handleChange,
             handleSubmit,
+            PocketBtn,
+            LoginBtn,
+            LogoutBtn,
         }=this;
-
-        function LogoutBtn(props){
-            const isLogin=props.isLogin;
-            if(isLogin===true){
-                return(
-                    <Button variant="danger" className="LogoutBtn" onClick={()=>{
-                        const token=document.cookie.split("=")[1];
-                        axios.get("http://localhost:3002/api/logout",{
-                     params:{cookies:token}
-                 },{withCredentials:true}).then(res=>console.log(res));
-                    }}>로그아웃</Button>
-                );
-            }else return (<></>);
-        }
+        
         return(
            <div className="container">
             {isLoading?(
@@ -117,9 +109,10 @@ class SearchBooks extends Component{
                 </div>
             ):( 
                 <div>
-                <PocketBtn isLogin={isLogin}></PocketBtn>
-                <LoginBtn isLogin={isLogin}></LoginBtn>
-                <LogoutBtn isLogin={isLogin}></LogoutBtn>
+                {PocketBtn()}
+                {LoginBtn()}
+                {LogoutBtn()}
+                
                 <form onSubmit={handleSubmit}>
                   <div className="input_div">
                       <h1>Search Books</h1>
@@ -140,4 +133,15 @@ class SearchBooks extends Component{
     }
 }
 
-export default SearchBooks;
+function mapStateToProps(state){
+    return {isLogin:state.isLogin};
+}
+
+function mapDispatchToProps(dispatch,ownProps){
+  return{
+      LoginTrue:()=>{dispatch(LogIn())},
+      LoginFalse:()=>{dispatch(LogOut())}
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (SearchBooks);

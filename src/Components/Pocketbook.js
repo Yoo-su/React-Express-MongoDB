@@ -1,5 +1,5 @@
-import React from './node_modules/react';
-import {Button} from './node_modules/react-bootstrap';
+import React from 'react';
+import {Button} from 'react-bootstrap';
 import './Pocketbook.css';
 
 const Pocketbook=({image,link,title,author,price,discount})=>{
@@ -15,7 +15,7 @@ const Pocketbook=({image,link,title,author,price,discount})=>{
                <Button onClick={()=>{
                  window.open(link);
                }}>구매 링크로 이동</Button>
-               <Button style={{float:"right"}} variant="danger" onClick={}>X</Button>
+               <Button style={{float:"right"}} variant="danger" onClick={()=>{}}>X</Button>
            </div>
            <br></br>
            <br></br>

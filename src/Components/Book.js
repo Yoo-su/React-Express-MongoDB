@@ -1,4 +1,4 @@
-import React, {useState,useEffeft} from 'react';
+import React from 'react';
 import Bookdetail from './Bookdetail';
 import Popup from 'reactjs-popup';
 import './Book.css';
@@ -11,7 +11,7 @@ const Book=({id,image,title,author,publ,price,discount,desc,link})=>{
   author=author.replace(/<b>/gi,'').replace(/<\/b>/gi,'');
   const rindex=image.indexOf("?type");
   const newimg=image.substr(0,rindex);
-  const [popup,setpopup]=useState(false);
+  
 
    return(
        <div className="book">

@@ -45,3 +45,11 @@ body {
   left:25%;
   width:75%; 
 }
+
+.LoginBtn{
+  float:right;
+}
+
+.LogoutBtn{
+  float:right;
+}

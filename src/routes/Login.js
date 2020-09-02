@@ -1,9 +1,11 @@
-import React ,{useState, useEffect} from 'react';
+import React ,{useState} from 'react';
 import {Button} from 'react-bootstrap';
 import "./Login.css";
 import axios from 'axios';
+import {connect} from "react-redux";
+import {LogIn} from "../store";
 
-const Login=()=>{
+const Login=({history,LoginTrue,isLogin})=>{
     const [inputEmail,setEmail]=useState("");
     const [inputPW,setPW]=useState("");
 
@@ -26,7 +28,9 @@ const Login=()=>{
         },{withCredentials:true}).then(res=>{  //withCredentila:true 이거 해줘야 서버에서 쿠키 제대로 가져옴
             if(res.data.loginSuccess===true){
                 alert("로그인 성공");
-                window.location.href="#/";
+                LoginTrue();
+                console.log(isLogin);
+                history.push("/");
             }else{
                 alert(res.data.message);
             }
@@ -46,4 +50,14 @@ const Login=()=>{
     );
 }
 
-export default Login;
+function mapStateToProps(state){
+    return {isLogin:state.isLogin};
+}
+
+const mapDispatchToProps=(dispatch,ownProps)=>{
+  return{
+    LoginTrue:()=>{dispatch(LogIn())}
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Login);
