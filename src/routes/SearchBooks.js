@@ -75,18 +75,38 @@ class SearchBooks extends Component{
         return(
             <Link to={{
                 pathname:'/Login'
-            }}><Button variant="success" className="LoginBtn">로그인</Button></Link>
+            }}><Button variant="info" className="LoginBtn">SignIn</Button></Link>
         );
     }else return(<></>);
     };
+   
+    SignupBtn=()=>{
+        if(this.props.isLogin===false){
+            return(
+                <Link to={{
+                    pathname:'/Signup'
+                }}><Button variant="success" className="LoginBtn">SignUp</Button></Link>
+            );
+        }else return(<></>);
+        };
 
     LogoutBtn=()=>{
     if(this.props.isLogin===true){
         return(
             <Button variant="danger" className="LogoutBtn" onClick={this.props.LoginFalse,()=>{
-                document.cookie="x_auth=; expires=Thu, 01 Jan 1999 00:00:10 GMT;"; //쿠키제거
-                document.location.reload(true);
-            }}>로그아웃</Button>
+                const cook=document.cookie.split("=")[1];
+                let isOut=true; 
+
+                axios.get("http://localhost:3002/api/logout",{
+                    params:{cookies:cook}
+                }).then(res=>{isOut=res.data.success}).catch(err=>console.log(err));
+
+                if(isOut===true){
+                    document.cookie="x_auth=; expires=Thu, 01 Jan 1999 00:00:10 GMT;"; //쿠키제거
+                    document.location.reload(true);
+                }
+                
+            }}>Logout</Button>
         )
     }
     };
@@ -99,6 +119,7 @@ class SearchBooks extends Component{
             PocketBtn,
             LoginBtn,
             LogoutBtn,
+            SignupBtn
         }=this;
         
         return(
@@ -112,7 +133,8 @@ class SearchBooks extends Component{
                 {PocketBtn()}
                 {LoginBtn()}
                 {LogoutBtn()}
-                
+                {SignupBtn()}
+                <br></br><br></br>
                 <form onSubmit={handleSubmit}>
                   <div className="input_div">
                       <h1>Search Books</h1>

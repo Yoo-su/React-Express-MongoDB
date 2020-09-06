@@ -32,7 +32,29 @@ const userSchema=mongoose.Schema({
       type:Number
     },
     pocket:{
-      type:[Object]
+      type:[{
+        id:{
+          type:String
+        },
+        image:{
+          type:String
+        },
+        title:{
+          type:String
+        },
+        author:{
+          type:String
+        },
+        price:{
+          type:String
+        },
+        discount:{
+          type:String
+        },
+        link:{
+          type:String
+        }
+      }]
     }
 });
 
