@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import {Button} from 'react-bootstrap';
 import axios from "axios";
 import Pocketbook from '../Components/Pocketbook';
+import socketio from 'socket.io-client';
 import './Pocket.css';
 class Pocket extends React.Component{
   state={
@@ -16,7 +17,14 @@ class Pocket extends React.Component{
 
  componentDidMount(){
    this.getPocket();
- }
+   this.autoUpdate();
+ };
+
+ autoUpdate(){
+  setInterval(()=>{
+    console.log("state변경!...");
+    this.getPocket();},3000);
+}
 
   render(){
   return(

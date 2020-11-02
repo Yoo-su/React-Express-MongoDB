@@ -13,7 +13,8 @@ router.post("/", auth, (req,res)=>{
         price:req.body.price,
         discount:req.body.discount,
         link:req.body.link
-    }}},(err,user)=>{
+    }
+}},(err,user)=>{
         if(err) return res.json({success:false,err});
       return res.status(200).send({
           success:true,

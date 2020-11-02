@@ -1,21 +1,26 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
+import {Button,Modal} from 'react-bootstrap';
 import './Bookdetail.css';
 import {connect} from "react-redux";
 import axios from "axios";
 
-const Bookdetail=({id,image,newimage,title,author,price,discount,desc,publ,link,isAuth})=>{
+const Bookdetail=({id,image,title,author,price,discount,desc,publ,link,isAuth,show,setShow})=>{
   return(
       <div className="detail">
-        <div className="bigimg">
-          <img src={newimage} alt={title}></img>
-        </div>
-        <div className="info">
-          <p className="title"><span>제목: {title}</span></p>
-          <p className="author"><span>저자명: {author}</span></p>
-          <p className="publisher"><span>출판사: {publ}</span></p>
-          <p className="price"><span>정가: {price}원 / 할인가: {discount}원</span></p>
-          <p className="desc"><span>{desc}</span></p>
+        <Modal size="lg" show={show} onHide={setShow}>
+          <div id="coverImg" style={{textAlign:"center"}}> 
+          <img src={image} style={{width:"500px"}}></img>
+          </div>
+          <Modal.Body>
+           <b>제목: </b>{title}<br></br>
+           <b>저자명: </b>{author}<br></br>
+           <b>출판사: </b>{publ}<br></br>
+           <b>정가: </b>{price}원 / <b>할인가: </b>{discount}원<br></br><br></br>
+           <div id="description">
+           {desc}
+           </div>
+          </Modal.Body>
+          <Modal.Footer> 
           <div className="topocketb">
           {isAuth?(<Button variant='primary'  onClick={()=>{
             let isSuccess=false;
@@ -28,7 +33,8 @@ const Bookdetail=({id,image,newimage,title,author,price,discount,desc,publ,link,
                 author:author,
                 price:price,
                 discount:discount,
-                link:link
+                link:link,
+                test:"똥똥 에그더러워!"
             },{withCredentials:true}).then(res=>{
               console.log(res); 
               if(res.data.success===true){
@@ -37,7 +43,8 @@ const Bookdetail=({id,image,newimage,title,author,price,discount,desc,publ,link,
           }}>장바구니 담기</Button>):(<></>)
           }
         </div>
-        </div>
+          </Modal.Footer>
+        </Modal>
       </div>
   );
 }

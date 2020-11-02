@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import {Button,Card} from 'react-bootstrap';
 import Book from '../Components/Book';
 import './SearchBooks.css';
 import { connect } from 'react-redux';
@@ -140,7 +140,7 @@ class SearchBooks extends Component{
                       <h1>Search Books</h1>
                       <input className="input_search" type="text" value={this.state.input} onChange={handleChange} placeholder="키워드 입력..."></input>
                   </div>
-                  <br></br>
+                  <br></br><br></br>
                   <div className="books">
                   {books.map(book=>(
                       <Book key={book['link']} id={book['link']} image={book['image']} title={book['title']} author={book['author']} 

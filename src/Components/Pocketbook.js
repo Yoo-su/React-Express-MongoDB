@@ -20,7 +20,8 @@ const Pocketbook=({id,image,link,title,author,price,discount})=>{
                  axios.post("http://localhost:3002/api/deleteBook",{
                    cookies:document.cookie.split("=")[1],
                    bookId:id
-                 }).then(res=>{if(res.data.success===true){document.location.reload(true);}})
+                 }).then(res=>{if(res.data.success===true){document.location.reload(true);}});
+                 window.location.reload();
                }}>X</Button>
            </div>
            <br></br>

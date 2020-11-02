@@ -5,3 +5,8 @@
     border:1px solid #000000;
 }
 
+#description{
+    padding:5px;
+    border: 1px solid;
+    border-radius: 5px;
+}

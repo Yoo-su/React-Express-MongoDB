@@ -3,6 +3,8 @@ const express=require('express');
 const app=express();
 const api=require('./routes/index');
 const cors = require('cors');
+const io=require('socket.io');
+const port=process.env.PORT||3002;
 
 app.use(cors({
     origin: true,
@@ -10,4 +12,4 @@ app.use(cors({
 }));
 app.use('/api',api);
 
-app.listen(3002,()=>console.log('Server is running!'));
+app.listen(port,()=>console.log('Server is running!'));

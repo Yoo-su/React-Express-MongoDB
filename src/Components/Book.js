@@ -1,6 +1,6 @@
-import React from 'react';
+import React,{useState} from 'react';
+import {Card} from 'react-bootstrap';
 import Bookdetail from './Bookdetail';
-import Popup from 'reactjs-popup';
 import './Book.css';
 
 const Book=({id,image,title,author,publ,price,discount,desc,link})=>{
@@ -11,26 +11,25 @@ const Book=({id,image,title,author,publ,price,discount,desc,link})=>{
   author=author.replace(/<b>/gi,'').replace(/<\/b>/gi,'');
   const rindex=image.indexOf("?type");
   const newimg=image.substr(0,rindex);
+  const [showDetail,setShowDetail]=useState(false);
   
+  function modalOnOff(){
+    setShowDetail(!showDetail);
+  }
 
    return(
        <div className="book">
-         <Popup position="bottom center" contentStyle={{background:"#efefef",width: "700px"}} trigger={
-           <div>
-           <div className="cover">
-           <img src={image} alt={title}></img></div>
-          <div className="contents">
-           <p className="title"><span>제목: {title}</span></p>
-           <p className="author"><span>저자명: {author}</span></p>
-           <p className="publisher"><span>출판사: {publ}</span></p>
-           </div>
-           </div>
-         }><Bookdetail id={id} image={image} newimage={newimg} title={title} author={author} publ={publ} price={price}
-          discount={discount} desc={desc} link={link} />
-          </Popup>
-          <br></br>
-          <br></br>
-          <br></br>
+         <Card style={{width:"10rem"}} onClick={()=>{modalOnOff();}}>
+           <Card.Img variant="top" src={newimg} style={{width:"10rem"}}></Card.Img>
+          <Card.Body>
+           <Card.Title style={{fontSize:"12px"}}><b>{title}</b></Card.Title>
+           <Card.Text style={{fontSize:"9px"}}><b>저자: </b>{author}<br></br>
+            <b>출판사: </b>{publ}<br></br>
+           </Card.Text>
+          </Card.Body>
+          </Card>
+          <Bookdetail show={showDetail} image={newimg} setShow={modalOnOff} id={id} title={title} author={author}
+           publ={publ} price={price} discount={discount} desc={desc} link={link}></Bookdetail>
         </div>
    );
 }
